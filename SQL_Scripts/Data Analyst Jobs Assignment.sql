@@ -112,9 +112,7 @@
 --   C & B: 57
 --   HC: 52
 
--- SELECT *
--- FROM data_analyst_jobs
--- LIMIT 10;
+
 
 -- SELECT domain, COUNT(*) AS num_jobs
 -- FROM data_analyst_jobs
