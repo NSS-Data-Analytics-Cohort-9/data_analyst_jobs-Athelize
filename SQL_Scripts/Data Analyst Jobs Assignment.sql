@@ -44,6 +44,7 @@
 
 -- SELECT location AS state, AVG(star_rating) AS avg_rating
 -- FROM data_analyst_jobs
+-- WHERE star_rating IS NOT null
 -- GROUP BY location
 -- ORDER BY avg_rating DESC;
 
@@ -61,19 +62,19 @@
 -- FROM data_analyst_jobs
 -- WHERE location = 'CA';
 
---9.	Find the name of each company and its average star rating for all companies that have more than 5000 reviews across all locations. How many companies are there with more that 5000 reviews across all locations? 71
+--9.	Find the name of each company and its average star rating for all companies that have more than 5000 reviews across all locations. How many companies are there with more that 5000 reviews across all locations? 40
 
 -- SELECT company, AVG(star_rating)
 -- FROM data_analyst_jobs
--- GROUP BY company
--- HAVING SUM(review_count) > 5000;
+-- WHERE star_rating IS NOT NULL AND company IS NOT NULL AND review_count>5000
+-- GROUP BY company;
 
---10.	Add the code to order the query in #9 from highest to lowest average star rating. Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating? Google. The rating is 4.3.
+--10.	Add the code to order the query in #9 from highest to lowest average star rating. Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating? 6 way tie between Unilever, GM, Nike, American Express, Microsoft, and Kaiser Permanente.
 
 -- SELECT company, AVG(star_rating)
 -- FROM data_analyst_jobs
+-- WHERE star_rating IS NOT NULL AND company IS NOT NULL AND review_count>5000
 -- GROUP BY company
--- HAVING SUM(review_count) > 5000
 -- ORDER BY AVG(star_rating) DESC;
 
 
@@ -81,11 +82,12 @@
 
 -- SELECT DISTINCT title
 -- FROM data_analyst_jobs
--- WHERE title LIKE '%Analyst%';
+-- WHERE title ILIKE '%Analyst%';
 
 -- SELECT COUNT(DISTINCT title)
 -- FROM data_analyst_jobs
--- WHERE title LIKE '%Analyst%';
+-- WHERE title ILIKE '%Analyst%'
+-- OR title ILIKE '%Analysts%';
 
 -- SELECT COUNT(DISTINCT title)
 -- FROM data_analyst_jobs
@@ -93,18 +95,13 @@
 -- OR LOWER (title) like '%analysts%';
 
 
---12.	How many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common? They still contain the worst data for 3 of the 4 that come up.
+--12.	How many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common? 4 Do not contain Analyst and they all contain Tableau.
 
 -- SELECT COUNT(DISTINCT title) AS num_titles
 -- FROM data_analyst_jobs
--- WHERE title NOT LIKE '%Analyst%'
---   AND title NOT LIKE '%Analytics%';
+-- WHERE title NOT ILIKE '%Analyst%'
+--   AND title NOT ILIKE '%Analytics%';
  
--- SELECT DISTINCT title
--- FROM data_analyst_jobs
--- WHERE title NOT LIKE '%Analyst%'
---   AND title NOT LIKE '%Analytics%';
-
 -- SELECT DISTINCT title
 -- FROM data_analyst_jobs
 -- WHERE title NOT ILIKE '%Analyst%'
@@ -125,12 +122,12 @@
 
 
 
--- SELECT domain, COUNT(*) AS num_jobs
+-- SELECT domain, COUNT(*) AS hard_to_fill
 -- FROM data_analyst_jobs
 -- WHERE skill LIKE '%SQL%'
 --   AND days_since_posting > 21
 --   AND domain IS NOT NULL
 -- GROUP BY domain
--- ORDER BY num_jobs DESC
+-- ORDER BY hard_to_fill DESC
 -- LIMIT 4;
 
